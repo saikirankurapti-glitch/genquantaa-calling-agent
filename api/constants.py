@@ -60,7 +60,12 @@ BACKEND_API_ENDPOINT = (
 )
 UI_APP_URL = os.getenv("UI_APP_URL", "http://localhost:3010")
 
-DATABASE_URL = os.environ["DATABASE_URL"]
+GENQUANTAA_DB_USER = os.getenv("GENQUANTAA_DB_USER", "postgres")
+GENQUANTAA_DB_PASSWORD = os.getenv("GENQUANTAA_DB_PASSWORD", os.getenv("POSTGRES_PASSWORD", "postgres"))
+GENQUANTAA_DB_NAME = os.getenv("GENQUANTAA_DB_NAME", "postgres")
+
+DATABASE_URL = os.getenv("DATABASE_URL") or f"postgresql+asyncpg://{GENQUANTAA_DB_USER}:{GENQUANTAA_DB_PASSWORD}@postgres:5432/{GENQUANTAA_DB_NAME}"
+GENQUANTAA_REDIS_PREFIX = os.getenv("GENQUANTAA_REDIS_PREFIX", "gq:")
 REDIS_URL = os.environ["REDIS_URL"]
 
 DEPLOYMENT_MODE = os.getenv("DEPLOYMENT_MODE", "oss")
@@ -92,7 +97,7 @@ MINIO_PUBLIC_ENDPOINT = (
 )
 MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
 MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY", "minioadmin")
-MINIO_BUCKET = os.getenv("MINIO_BUCKET", "voice-audio")
+MINIO_BUCKET = os.getenv("GENQUANTAA_MINIO_BUCKET") or os.getenv("MINIO_BUCKET", "genquantaa-voice-audio")
 MINIO_SECURE = os.getenv("MINIO_SECURE", "false").lower() == "true"
 
 # AWS S3 Configuration
