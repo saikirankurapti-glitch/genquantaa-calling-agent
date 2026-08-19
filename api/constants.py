@@ -137,10 +137,15 @@ SERIALIZE_LOG_OUTPUT = os.getenv("SERIALIZE_LOG_OUTPUT", "false").lower() == "tr
 #   * secret unset            -> feature off, URLs unchanged (default)
 #   * secret set, enforce off -> tokens minted + verified; invalid ones only logged
 #   * secret set, enforce on  -> invalid/missing tokens rejected (WS close 4401)
-TELEPHONY_WS_TOKEN_SECRET = os.getenv("TELEPHONY_WS_TOKEN_SECRET") or None
-TELEPHONY_WS_TOKEN_ENFORCE = (
-    os.getenv("TELEPHONY_WS_TOKEN_ENFORCE", "false").lower() == "true"
+TELEPHONY_WS_TOKEN_SECRET = (
+    os.getenv("GENQUANTAA_TELEPHONY_WS_TOKEN_SECRET")
+    or os.getenv("TELEPHONY_WS_TOKEN_SECRET")
+    or None
 )
+TELEPHONY_WS_TOKEN_ENFORCE = (
+    os.getenv("GENQUANTAA_TELEPHONY_WS_TOKEN_ENFORCE")
+    or os.getenv("TELEPHONY_WS_TOKEN_ENFORCE", "false")
+).lower() == "true"
 
 # Logging configuration
 LOG_FILE_PATH = os.getenv("LOG_FILE_PATH", None)
@@ -246,10 +251,15 @@ DEFAULT_CIRCUIT_BREAKER_CONFIG = {
 
 # Whether this deployment runs a TURN server (coturn).
 ENABLE_COTURN = os.getenv("ENABLE_COTURN", "false").lower() == "true"
-TURN_SECRET = os.getenv("TURN_SECRET")
+TURN_SECRET = os.getenv("GENQUANTAA_TURN_SECRET") or os.getenv("TURN_SECRET")
 # Host browsers dial for TURN/ICE. Derives from PUBLIC_HOST; set explicitly only
 # when the TURN server runs on a separate host from the app.
-TURN_HOST = os.getenv("TURN_HOST") or PUBLIC_HOST or "localhost"
+TURN_HOST = (
+    os.getenv("GENQUANTAA_TURN_HOST")
+    or os.getenv("TURN_HOST")
+    or PUBLIC_HOST
+    or "localhost"
+)
 TURN_PORT = int(os.getenv("TURN_PORT", "3478"))
 TURN_TLS_PORT = int(os.getenv("TURN_TLS_PORT", "5349"))
 TURN_CREDENTIAL_TTL = int(os.getenv("TURN_CREDENTIAL_TTL", "86400"))
