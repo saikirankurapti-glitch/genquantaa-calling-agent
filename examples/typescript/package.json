@@ -1,5 +1,5 @@
 {
-  "name": "dograh-examples-typescript",
+  "name": "genquantaa-examples-typescript",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,7 +10,7 @@
     "edit": "tsx --env-file=.env load_and_edit_workflow.ts"
   },
   "dependencies": {
-    "@dograh/sdk": "latest"
+    "@genquantaa/sdk": "latest"
   },
   "devDependencies": {
     "tsx": "^4.7.0",
