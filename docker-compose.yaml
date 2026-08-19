@@ -130,6 +130,9 @@ services:
 
   api:
     container_name: genquantaa-api
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
     image: ${REGISTRY:-dograhai}/dograh-api:latest
     environment:
       ENVIRONMENT: "${ENVIRONMENT:-local}"

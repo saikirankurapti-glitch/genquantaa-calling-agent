@@ -6,6 +6,7 @@ from api.constants import (
     CORS_ALLOWED_ORIGINS,
     DEPLOYMENT_MODE,
     ENABLE_TELEMETRY,
+    PUBLIC_BASE_URL,
     SENTRY_DSN,
 )
 from api.logging_config import ENVIRONMENT, setup_logging
@@ -110,30 +111,32 @@ async def handle_mps_unavailable_error(
 
 
 # Configure CORS.
-# OSS is typically deployed with UI and API behind a single reverse proxy
-# (same-origin, so CORS does not apply). Keep it permissive without
-# credentials — wildcard + credentials is rejected by browsers and unsafe.
-# SaaS deployments must set CORS_ALLOWED_ORIGINS to an explicit allowlist.
-if DEPLOYMENT_MODE == "oss":
-    cors_origins: list[str] = ["*"]
-    cors_allow_credentials = False
-else:
-    if not CORS_ALLOWED_ORIGINS:
-        raise RuntimeError(
-            "CORS_ALLOWED_ORIGINS must be set to an explicit origin allowlist "
-            "when DEPLOYMENT_MODE != 'oss'"
-        )
-    if "*" in CORS_ALLOWED_ORIGINS:
-        raise RuntimeError(
-            "CORS_ALLOWED_ORIGINS cannot contain '*' with credentialed requests"
-        )
-    cors_origins = CORS_ALLOWED_ORIGINS
-    cors_allow_credentials = True
+# Allow development origins (http://localhost:3010, http://127.0.0.1:3010, etc.)
+# plus any explicitly configured CORS_ALLOWED_ORIGINS with allow_credentials=True
+# so browser requests sending cookies/headers succeed without CORS errors.
+dev_origins = [
+    "http://localhost:3010",
+    "http://127.0.0.1:3010",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
+
+cors_origins: list[str] = []
+for origin in dev_origins:
+    if origin not in cors_origins:
+        cors_origins.append(origin)
+
+for origin in CORS_ALLOWED_ORIGINS:
+    if origin and origin != "*" and origin not in cors_origins:
+        cors_origins.append(origin)
+
+if PUBLIC_BASE_URL and PUBLIC_BASE_URL not in cors_origins:
+    cors_origins.append(PUBLIC_BASE_URL)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_origins,
-    allow_credentials=cors_allow_credentials,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
