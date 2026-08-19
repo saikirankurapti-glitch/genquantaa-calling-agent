@@ -51,9 +51,7 @@ ENV NEXT_PUBLIC_NODE_ENV="oss"
 
 ENV NEXT_TELEMETRY_DISABLED="1"
 
-ENV NEXT_PUBLIC_CHATWOOT_URL="https://chat.dograh.com"
-
-ENV NEXT_PUBLIC_CHATWOOT_TOKEN="3fkFx2mCEjNHjM9gaNc4A82X"
+ENV NEXT_PUBLIC_APP_NAME="GenQuantaa Calling Agent"
 
 # Server-side:
 # UI container -> API container

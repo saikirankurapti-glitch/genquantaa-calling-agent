@@ -7,7 +7,7 @@
 // .env.example ships this commented out) → fall back to our cloud leads backend so we
 // still receive OSS form submissions. Override the env var to point elsewhere (or to a
 // local backend) to stop sending leads to us.
-const BASE_URL = process.env.NEXT_PUBLIC_ONBOARDING_API_URL || "https://api-leads.dograh.com";
+const BASE_URL = process.env.NEXT_PUBLIC_ONBOARDING_API_URL || "";
 
 // Bound every call so a slow/hung service can never freeze the UI. Best-effort:
 // failures are surfaced via console.error (Sentry breadcrumbs) but never thrown.
@@ -24,6 +24,9 @@ export type LeadResult = {
 // POST a JSON body to the onboarding service (public — no auth header). Returns the parsed
 // body on success, or null on a non-2xx / network error / timeout (best-effort, never throws).
 async function post(path: string, body: unknown): Promise<LeadResult | null> {
+  if (!BASE_URL) {
+    return null;
+  }
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {

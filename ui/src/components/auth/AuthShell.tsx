@@ -55,7 +55,7 @@ export function AuthShell({
 
         <div className="relative max-w-md space-y-5">
           <h1 className="text-3xl font-semibold leading-tight tracking-tight text-zinc-50 xl:text-4xl">
-            The open-source voice AI platform.
+            The enterprise voice AI agent platform.
           </h1>
           <ul className="flex flex-wrap gap-2">
             {HIGHLIGHTS.map((point) => (
@@ -69,14 +69,14 @@ export function AuthShell({
           </ul>
         </div>
 
-        {/* Enterprise CTA block (Bland-style) — bottom margin lifts it off the
+        {/* Enterprise CTA block — bottom margin lifts it off the
             viewport edge while justify-between keeps the column layout */}
         <div className="relative mb-12 max-w-md space-y-3 rounded-xl border border-white/10 bg-white/[0.03] p-5 xl:mb-16">
           <h2 className="text-sm font-semibold text-zinc-100">
             Need on-prem, data residency &amp; a data perimeter?
           </h2>
           <p className="text-sm text-zinc-400">
-            We deploy Dograh inside your environment for regulated and
+            We deploy GenQuantaa Calling Agent inside your environment for regulated and
             high-scale teams.
           </p>
           {enterpriseSlot}

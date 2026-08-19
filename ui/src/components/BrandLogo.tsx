@@ -15,24 +15,24 @@ export function BrandLogo({
   inverse?: boolean;
   mark?: boolean;
 }) {
+  const appName = process.env.NEXT_PUBLIC_APP_NAME || "GenQuantaa";
+
   if (mark) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/dograh-mark.png" alt="Dograh" className={cn("w-auto select-none", className)} />
+      <div className={cn("inline-flex items-center justify-center font-bold tracking-wider rounded-lg bg-emerald-600 text-white px-2 py-1 text-xs select-none", className)}>
+        GQ
+      </div>
     );
   }
-  if (inverse) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/dograh-logo-inverse.png" alt="Dograh" className={cn("w-auto select-none", className)} />
-    );
-  }
+
   return (
-    <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/dograh-logo.png" alt="Dograh" className={cn("block w-auto select-none dark:hidden", className)} />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/dograh-logo-inverse.png" alt="Dograh" className={cn("hidden w-auto select-none dark:block", className)} />
-    </>
+    <div className={cn("inline-flex items-center gap-2 font-bold tracking-tight text-lg select-none", inverse ? "text-white" : "text-foreground", className)}>
+      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 font-extrabold text-white text-xs shadow-sm">
+        GQ
+      </div>
+      <span className="font-semibold text-foreground tracking-tight">
+        {appName}
+      </span>
+    </div>
   );
 }

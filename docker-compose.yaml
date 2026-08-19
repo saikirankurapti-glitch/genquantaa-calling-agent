@@ -44,7 +44,7 @@ services:
 
   minio:
     image: minio/minio
-    container_name: minio
+    container_name: genquantaa_minio
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: "${MINIO_ROOT_USER:-minioadmin}"
@@ -65,7 +65,7 @@ services:
 
   dograh-init:
     image: bash:5.2
-    container_name: dograh_init
+    container_name: genquantaa_init
     profiles: ["remote", "local-turn"]
     environment:
       ENVIRONMENT: "${ENVIRONMENT:-local}"
@@ -129,6 +129,7 @@ services:
       - app-network
 
   api:
+    container_name: genquantaa-api
     image: ${REGISTRY:-dograhai}/dograh-api:latest
     environment:
       ENVIRONMENT: "${ENVIRONMENT:-local}"
@@ -163,12 +164,13 @@ services:
       TURN_SECRET: "${TURN_SECRET:-}"
       FORCE_TURN_RELAY: "${FORCE_TURN_RELAY:-false}"
       SERVER_IP: "${SERVER_IP:-}"
-      OSS_JWT_SECRET: "${OSS_JWT_SECRET:?OSS_JWT_SECRET must be set to a strong secret}"
+      OSS_JWT_SECRET: "${OSS_JWT_SECRET:-GenQuantaaLocalJwtSecret_2026_Strong_9xK7mP2qL8vR}"
+      GENQUANTAA_JWT_SECRET: "${GENQUANTAA_JWT_SECRET:-GenQuantaaLocalJwtSecret_2026_Strong_9xK7mP2qL8vR}"
       TELEPHONY_WS_TOKEN_SECRET: "${TELEPHONY_WS_TOKEN_SECRET:-}"
       TELEPHONY_WS_TOKEN_ENFORCE: "${TELEPHONY_WS_TOKEN_ENFORCE:-false}"
-      ENABLE_TELEMETRY: "${ENABLE_TELEMETRY:-true}"
-      POSTHOG_API_KEY: "phc_ItizB1dP6yv7ZYobbcqrpxTdbomDA8hJFSEmAMdYvIr"
-      POSTHOG_HOST: "https://us.i.posthog.com"
+      ENABLE_TELEMETRY: "${ENABLE_TELEMETRY:-false}"
+      POSTHOG_API_KEY: "${POSTHOG_API_KEY:-}"
+      POSTHOG_HOST: "${POSTHOG_HOST:-https://us.i.posthog.com}"
     ports:
       - "8000:8000"
     depends_on:
@@ -191,6 +193,7 @@ services:
       - app-network
 
   ui:
+    container_name: genquantaa-ui
     build:
       context: .
       dockerfile: ./ui/Dockerfile
@@ -204,10 +207,10 @@ services:
 
       NODE_ENV: "production"
 
-      ENABLE_TELEMETRY: "${ENABLE_TELEMETRY:-true}"
+      ENABLE_TELEMETRY: "${ENABLE_TELEMETRY:-false}"
 
-      POSTHOG_KEY: "phc_ItizB1dP6yv7ZYobbcqrpxTdbomDA8hJFSEmAMdYvIr"
-      POSTHOG_HOST: "https://us.posthog.com"
+      POSTHOG_KEY: "${POSTHOG_KEY:-}"
+      POSTHOG_HOST: "${POSTHOG_HOST:-https://us.posthog.com}"
 
     ports:
       - "3010:3010"

@@ -29,8 +29,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dograh",
-  description: "Open Source Voice Assistant Workflow Builder",
+  title: process.env.NEXT_PUBLIC_APP_NAME || "GenQuantaa Calling Agent",
+  description: "Enterprise Voice AI Agent Platform",
 };
 
 export default function RootLayout({
