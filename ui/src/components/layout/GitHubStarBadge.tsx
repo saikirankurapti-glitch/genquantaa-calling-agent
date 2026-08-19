@@ -16,9 +16,12 @@ interface GitHubStarBadgeProps {
 export function GitHubStarBadge({ className, label, showCount, source }: GitHubStarBadgeProps) {
   const [starCount, setStarCount] = useState<string | null>(null);
 
+  const repoUrl = process.env.NEXT_PUBLIC_REPO_URL || "https://github.com/saikirankurapti-glitch/genquantaa-calling-agent";
+  const repoApiUrl = process.env.NEXT_PUBLIC_REPO_API_URL || "https://api.github.com/repos/saikirankurapti-glitch/genquantaa-calling-agent";
+
   useEffect(() => {
     if (!showCount) return;
-    fetch("https://api.github.com/repos/dograh-hq/dograh")
+    fetch(repoApiUrl)
       .then((res) => res.json())
       .then((data) => {
         if (data.stargazers_count != null) {
@@ -27,13 +30,13 @@ export function GitHubStarBadge({ className, label, showCount, source }: GitHubS
         }
       })
       .catch(() => {});
-  }, [showCount]);
+  }, [showCount, repoApiUrl]);
 
   const hasCount = showCount && starCount;
 
   return (
     <a
-      href="https://github.com/dograh-hq/dograh"
+      href={repoUrl}
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => posthog.capture(PostHogEvent.GITHUB_STAR_CLICKED, { source })}

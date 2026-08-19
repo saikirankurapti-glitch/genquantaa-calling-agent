@@ -134,7 +134,7 @@ export default function AddNodePanel({ isOpen, onNodeSelect, onClose, nodes }: A
                     <div className="flex flex-col gap-1">
                         <h2 className="text-lg font-semibold">Add New Node</h2>
                         <a
-                            href="https://docs.dograh.com/voice-agent/introduction"
+                            href={process.env.NEXT_PUBLIC_DOCS_URL ? `${process.env.NEXT_PUBLIC_DOCS_URL}/voice-agent/introduction` : "#"}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"

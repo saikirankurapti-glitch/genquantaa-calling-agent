@@ -19,7 +19,7 @@ export default function OverviewPage() {
                     <CardHeader>
                         <CardTitle className="text-3xl">
                             {isOSSMode ? (
-                                "Welcome to Dograh"
+                                "Welcome to GenQuantaa Calling Agent"
                             ) : (
                                 `Welcome${user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}!`
                             )}
@@ -27,7 +27,7 @@ export default function OverviewPage() {
                         <CardDescription className="text-lg mt-2">
                             {isOSSMode ? (
                                 <>
-                                    Open source alternative to Vapi. Help us support the project by giving us a star on GitHub.
+                                    The enterprise voice AI agent platform.
                                 </>
                             ) : (
                                 "Get started with building voice AI workflows"
@@ -83,14 +83,14 @@ export default function OverviewPage() {
                     <CardHeader>
                         <CardTitle>Resources</CardTitle>
                         <CardDescription>
-                            Get help and learn more about Dograh
+                            Get help and learn more about GenQuantaa Calling Agent
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="flex flex-wrap gap-4">
                             <Button asChild variant="outline">
                                 <a
-                                    href="https://docs.dograh.com"
+                                    href={process.env.NEXT_PUBLIC_DOCS_URL || "#"}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
@@ -99,7 +99,7 @@ export default function OverviewPage() {
                             </Button>
                             <Button asChild variant="outline">
                                 <a
-                                    href="https://github.com/dograh-hq/dograh/issues"
+                                    href={process.env.NEXT_PUBLIC_REPO_URL ? `${process.env.NEXT_PUBLIC_REPO_URL}/issues` : "#"}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >

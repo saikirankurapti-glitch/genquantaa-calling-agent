@@ -44,7 +44,7 @@ function parseSetCookie(header: string) {
 describe("GET /impersonate", () => {
     it("returns 400 when refresh_token is missing", async () => {
         const response = await GET(
-            makeRequest("https://app.dograh.com/impersonate"),
+            makeRequest("https://app.genquantaa.com/impersonate"),
         );
         expect(response.status).toBe(400);
     });
@@ -52,35 +52,35 @@ describe("GET /impersonate", () => {
     it("redirects to redirect_path on the same origin", async () => {
         const response = await GET(
             makeRequest(
-                "https://app.dograh.com/impersonate?refresh_token=rt-new&redirect_path=/workflow/42",
+                "https://app.genquantaa.com/impersonate?refresh_token=rt-new&redirect_path=/workflow/42",
             ),
         );
         expect(response.status).toBe(307);
         expect(response.headers.get("location")).toBe(
-            "https://app.dograh.com/workflow/42",
+            "https://app.genquantaa.com/workflow/42",
         );
     });
 
     it("falls back to /workflow/create for a cross-origin redirect_path", async () => {
         const response = await GET(
             makeRequest(
-                "https://app.dograh.com/impersonate?refresh_token=rt-new&redirect_path=https://evil.com/phish",
+                "https://app.genquantaa.com/impersonate?refresh_token=rt-new&redirect_path=https://evil.com/phish",
             ),
         );
         expect(response.headers.get("location")).toBe(
-            "https://app.dograh.com/workflow/create",
+            "https://app.genquantaa.com/workflow/create",
         );
     });
 
     it("falls back to /workflow/create for a malformed redirect_path", async () => {
         const response = await GET(
             makeRequest(
-                "https://app.dograh.com/impersonate?refresh_token=rt-new&redirect_path=https%3A%2F%2F",
+                "https://app.genquantaa.com/impersonate?refresh_token=rt-new&redirect_path=https%3A%2F%2F",
             ),
         );
         expect(response.status).toBe(307);
         expect(response.headers.get("location")).toBe(
-            "https://app.dograh.com/workflow/create",
+            "https://app.genquantaa.com/workflow/create",
         );
     });
 
@@ -88,7 +88,7 @@ describe("GET /impersonate", () => {
         const hostRefresh = `__Host-hexclave-refresh-${PROJECT_ID}--default`;
         const response = await GET(
             makeRequest(
-                "https://app.dograh.com/impersonate?refresh_token=rt-new",
+                "https://app.genquantaa.com/impersonate?refresh_token=rt-new",
                 {
                     cookie: [
                         `${hostRefresh}=old-session`,
@@ -113,7 +113,7 @@ describe("GET /impersonate", () => {
         // ...and for the host-only plus each parent-domain scope.
         const accessDomains = new Set(accessDeletions.map((c) => c.domain));
         expect(accessDomains).toEqual(
-            new Set([undefined, "app.dograh.com", "dograh.com"]),
+            new Set([undefined, "app.genquantaa.com", "genquantaa.com"]),
         );
 
         // Enumerated --custom-* cookies are cleared too.
@@ -158,7 +158,7 @@ describe("GET /impersonate", () => {
         const hostRefresh = `__Host-hexclave-refresh-${PROJECT_ID}--default`;
         const response = await GET(
             makeRequest(
-                "https://app.dograh.com/impersonate?refresh_token=rt-new",
+                "https://app.genquantaa.com/impersonate?refresh_token=rt-new",
                 { cookie: `${hostRefresh}=old-session` },
             ),
         );
@@ -191,7 +191,7 @@ describe("GET /impersonate", () => {
 
     it("honors x-forwarded-proto case-insensitively when the request is http", async () => {
         const response = await GET(
-            makeRequest("http://app.dograh.com/impersonate?refresh_token=rt", {
+            makeRequest("http://app.genquantaa.com/impersonate?refresh_token=rt", {
                 forwardedProto: "HTTPS",
             }),
         );

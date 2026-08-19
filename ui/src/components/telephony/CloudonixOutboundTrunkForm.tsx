@@ -177,7 +177,7 @@ export function CloudonixOutboundTrunkForm({
             id="cloudonix-trunk-name"
             value={form.name}
             onChange={(event) => updateForm("name", event.target.value)}
-            placeholder="e.g. dograh-carrier"
+            placeholder="e.g. genquantaa-carrier"
             disabled={submitting}
           />
           <p className="text-xs text-muted-foreground">

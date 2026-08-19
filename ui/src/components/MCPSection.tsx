@@ -104,7 +104,7 @@ export function MCPSection() {
         For step-by-step setup with Claude Code, Claude Desktop, Cursor, and
         other clients, see the{" "}
         <Link
-          href="https://docs.dograh.com/integrations/mcp"
+          href={process.env.NEXT_PUBLIC_DOCS_URL ? `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations/mcp` : "#"}
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary underline hover:no-underline"
