@@ -1,4 +1,4 @@
-# Dograh deployment stack
+# GenQuantaa Calling Agent deployment stack
 # Local browser -> API: http://localhost:8000
 # UI container -> API container: http://api:8000
 

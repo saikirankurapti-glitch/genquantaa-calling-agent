@@ -31,6 +31,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME || "GenQuantaa Calling Agent",
   description: "Enterprise Voice AI Agent Platform",
+  icons: {
+    icon: "/brand/icon.svg",
+    shortcut: "/brand/favicon.svg",
+    apple: "/brand/icon.svg",
+  },
 };
 
 export default function RootLayout({

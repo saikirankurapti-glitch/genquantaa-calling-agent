@@ -31,9 +31,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://dograh.com"
-Documentation = "https://docs.dograh.com"
-Repository = "https://github.com/dograh-hq/dograh"
+Homepage = "https://genquantaa.com"
+Documentation = "https://docs.genquantaa.com"
+Repository = "https://github.com/saikirankurapti-glitch/genquantaa-calling-agent"
 
 [project.scripts]
 dograh-sdk-codegen = "dograh_sdk.codegen:main"
